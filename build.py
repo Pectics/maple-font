@@ -551,23 +551,8 @@ class FontConfig:
 
     def _update_family_names(self):
         """Update family names based on options."""
-        name_arr = [word.capitalize() for word in self.family_name.split(" ")]
-
-        if self.use_normal_preset:
-            name_arr.append("Normal")
-
-        if not self.enable_ligature:
-            name_arr.append("NL")
-
-        width_name = self.get_width_name()
-        if width_name:
-            name_arr.append(width_name)
-
-        if self.debug:
-            name_arr.append("Debug")
-
-        self.family_name = " ".join(name_arr)
-        self.family_name_compact = "".join(name_arr)
+        # Keep the family name as-is from config, no suffixes
+        self.family_name_compact = self.family_name.replace(" ", "")
 
     def __load_args(self, args):
         self._apply_build_options(args)
@@ -1260,9 +1245,9 @@ def build_nf(
 
     update_font_names(
         font=nf_font,
-        family_name=f"{font_config.family_name} {nf_sym}{style_nf_with_prefix_space}",
+        family_name=f"{font_config.family_name}{style_nf_with_prefix_space}",
         style_name=style_in_2,
-        full_name=f"{font_config.family_name} {nf_sym} {style_in_17}",
+        full_name=f"{font_config.family_name} {style_in_17}",
         version_str=font_config.version_str,
         postscript_name=postscript_name,
         unique_identifier=get_unique_identifier(
@@ -1270,7 +1255,7 @@ def build_nf(
             postscript_name=postscript_name,
         ),
         is_skip_subfamily=is_skip_sufamily,
-        preferred_family_name=f"{font_config.family_name} {nf_sym}",
+        preferred_family_name=font_config.family_name,
         preferred_style_name=style_in_17,
     )
 
@@ -1326,9 +1311,9 @@ def build_cn(f: str, font_config: FontConfig, build_option: BuildOption):
 
     update_font_names(
         font=cn_font,
-        family_name=f"{font_config.family_name} {build_option.cn_suffix}{style_cn_with_prefix_space}",
+        family_name=f"{font_config.family_name}{style_cn_with_prefix_space}",
         style_name=style_in_2,
-        full_name=f"{font_config.family_name} {build_option.cn_suffix} {style_in_17}",
+        full_name=f"{font_config.family_name} {style_in_17}",
         version_str=font_config.version_str,
         postscript_name=postscript_name,
         unique_identifier=get_unique_identifier(
@@ -1337,7 +1322,7 @@ def build_cn(f: str, font_config: FontConfig, build_option: BuildOption):
             narrow=font_config.cn["narrow"],
         ),
         is_skip_subfamily=is_skip_subfamily,
-        preferred_family_name=f"{font_config.family_name} {build_option.cn_suffix}",
+        preferred_family_name=font_config.family_name,
         preferred_style_name=style_in_17,
     )
 
