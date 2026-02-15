@@ -80,12 +80,12 @@
   },
   "cn": {
     "enable": true,
-    "with_nerd_font": true,
+    "with_nerd_font": false,
     "fix_meta_table": true,
     "clean_cache": false,
     "narrow": false,
     "use_hinted": false,
     "use_static_base_font": true,
-    "scale_factor": 1.2
+    "scale_factor": 1.15
   }
 }
